@@ -1,6 +1,6 @@
 # OKSpin-SDK-Integration
 
-## Integrate OKSpin SDK In Android App
+## Integrate SDK In Android App
 ### Screenshot
 <img src="https://github.com/samehesmael277/OKSpin-SDK-Integration/assets/91541580/33287342-9c8d-48ce-90eb-1bff521b0a11" width="200">&nbsp;
 <img src="https://github.com/samehesmael277/OKSpin-SDK-Integration/assets/91541580/9f84c3c2-4638-4c34-8de9-ac39badd8f87" width="200">&nbsp;
