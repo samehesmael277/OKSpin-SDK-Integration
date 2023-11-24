@@ -1,34 +1,73 @@
-package com.sameh.task
+package com.sameh.task.ui.company
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.gamify.space.Gamify
 import com.gamify.space.GamifyError
-import com.sameh.task.Const.OKSPIN_APP_KEY
-import com.sameh.task.Const.OKSPIN_PLACEMENT
-import com.sameh.task.databinding.ActivityMainBinding
+import com.sameh.task.R
+import com.sameh.task.data.Companies
+import com.sameh.task.databinding.FragmentCompanyBinding
+import com.sameh.task.utils.Const.OKSPIN_APP_KEY
+import com.sameh.task.utils.Const.OKSPIN_PLACEMENT
 
-class MainActivity : AppCompatActivity() {
+class CompanyFragment : Fragment() {
 
-    private var _binding: ActivityMainBinding? = null
+    private var _binding: FragmentCompanyBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        _binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    private val args by navArgs<CompanyFragmentArgs>()
 
-        setListenerToOkspinSDK()
-        initOkspinSDK()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentCompanyBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setCompanyData()
+        setActions()
+        when (args.company.company) {
+            Companies.OKSpin -> {
+                setListenerToOkspinSDK()
+                initOkspinSDK()
+            }
+
+            Companies.Roulax -> {}
+        }
+    }
+
+    private fun setCompanyData() {
+        binding.apply {
+            tvCompanyName.text = args.company.name
+            imgCompany.setImageResource(args.company.logo)
+            imgCoverCompany.setImageResource(args.company.cover)
+            tvCompanySubtitle.text = args.company.subTitle
+            tvCompanyOverview.text = args.company.overview
+        }
+    }
+
+    private fun setActions() {
+        binding.apply {
+            tvVisitCompanyWebsite.setOnClickListener {
+                openLink(args.company.website)
+            }
+            btnBack.setOnClickListener {
+                backToHomeFragment()
+            }
+        }
     }
 
     private fun initOkspinSDK() {
@@ -44,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                 viewGroup.removeView(iconView)
             }
             iconView.layoutParams = ViewGroup.LayoutParams(300, 300)
-            binding.linearLayout.addView(iconView)
+            binding.linearCompanyIcon.addView(iconView)
         }
     }
 
@@ -152,7 +191,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun String.toToast() {
-        Toast.makeText(this@MainActivity, this, Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), this, Toast.LENGTH_SHORT).show()
     }
 
     private fun showProgress(boolean: Boolean) {
@@ -160,5 +199,31 @@ class MainActivity : AppCompatActivity() {
             binding.progressBar.visibility = View.VISIBLE
         else
             binding.progressBar.visibility = View.GONE
+    }
+
+    private fun backToHomeFragment() {
+        val id = findNavController().currentDestination?.id
+
+        if (id == R.id.companyFragment) {
+            findNavController().popBackStack()
+        }
+    }
+
+    private fun openLink(url: String) {
+        try {
+            var mUrl = url
+            if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                mUrl = "http://$url"
+            }
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(mUrl))
+            startActivity(browserIntent)
+        } catch (e: Exception) {
+            e.message.toString().toLogD()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

@@ -1,3 +1,67 @@
 <resources>
     <string name="app_name">Task</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="okspin_overview">
+        <![CDATA[
+            Overview\n\n
+                OKSpin is the world\'s leading interactive mobile advertising platform, offering flexible and efficient traffic monetization solutions for global mobile developers to maximize advertising revenue.\n
+                We have successfully provided professional solutions for more than 1,000 mobile developers worldwide and established sound partnerships with them.\n
+                OKSpin focusing on in-depth Research&Development of interactive advertising and has made the continuous investment to build attractive and real-time ads of diversified forms and localized content. Offer professional and dependable help for different kinds of developers worldwide to achieve sustainable and stable revenue and user growth.\n
+                As a global team, OKSpin is committed to the discovery and improvement of the global mobile economy. We believe that customer satisfaction is the core of cooperation. We have set up independent offices around the world.\n
+
+                \n
+
+            Industry\n
+                Technology, Information and Internet\n
+
+                \n
+
+            Company size\n
+                51-200 employees\n
+                15 associated members\n
+
+            \n
+
+            Founded\n
+                2021\n
+
+            \n
+
+            Specialties\n
+                App Monetization, User Acquisition, Mobile Gaming, and Mobile Marketing\n
+        ]]>
+    </string>
+
+    <string name="roulax_overview">
+        <![CDATA[
+            Overview\n
+                Roulax is an efficient monetization and advertising platform that specializes in delivering high-quality mobile advertising solutions to help bring incremental revenue and scale their business. Roulax\' proprietary technology delivers effective advertising and empowers publishers to maximize ad revenues.\n
+                As a new form of time-based ads,  Roulax OfferWall links the worl\'s premium game advertisers with your app, and showing users the games they are most interested in. Roulax aims to help developers improve retention and app Ltv.  Through Roulax OfferWall SDK, developers can get incremental extra income beyond expectations.\n
+                Roulax is focusing on customer satisfaction and empowering ads experience. Established in 2016, Roulax is committed to offering dependable service for thousands of clients worldwide to achieve sustainable and stable growth.\n
+
+                \n
+
+            Industry\n
+                 Advertising Services \n
+
+                \n
+
+            Company size\n
+                51-200 employees\n
+                14 associated members\n
+
+            \n
+
+            Founded\n
+                2016\n
+
+            \n
+
+            Specialties\n
+                Amonetization, performance marketing, DSP, SSP, and mobile advertising, offerwall SDK, and Rewarded Ads\n
+        ]]>
+    </string>
+    <string name="visit_company_website">Visit Company Website</string>
+    <string name="companies">Companies</string>
 </resources>
