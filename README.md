@@ -1,4 +1,4 @@
-# OKSpin-SDK-Integration
+# SDK-Integration-Kotlin
 
 ## Integrate SDK In Android App
 ### Screenshot
