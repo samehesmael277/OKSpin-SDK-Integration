@@ -57,9 +57,15 @@ dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
     implementation 'com.intuit.ssp:ssp-android:1.1.0'
 
+    // okspin
     implementation 'com.gamify:space:3.0.4'
 
     implementation 'com.github.zhpanvip:viewpagerindicator:1.2.1'
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // roulax
+    implementation fileTree(dir: 'libs/roulax_v3015', include: ['*.aar'])
+    //noinspection RiskyLibrary
+    implementation group: 'com.google.android.gms', name: 'play-services-ads', version: '15.0.0'
 }

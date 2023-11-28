@@ -18,6 +18,7 @@
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right"/>
     </fragment>
+
     <fragment
         android:id="@+id/companyFragment"
         android:name="com.sameh.task.ui.company.CompanyFragment"
@@ -27,4 +28,5 @@
             android:name="company"
             app:argType="com.sameh.task.data.Company" />
     </fragment>
+
 </navigation>

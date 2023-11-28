@@ -13,11 +13,27 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.gamify.space.Gamify
 import com.gamify.space.GamifyError
+import com.rad.RXError
+import com.rad.RXSDK
+import com.rad.out.RXAdInfo
+import com.rad.out.RXSdkAd
+import com.rad.out.banner.RXBannerAd
+import com.rad.out.banner.RXBannerEventListener
+import com.rad.out.nativeicon.RXNativeIconAd
+import com.rad.out.ow.nativead.RXOWNativeAd
+import com.rad.out.ow.nativead.RXOWNativeEventListener
+import com.rad.out.ow.nativeicon.RXOWNativeIcon
+import com.rad.out.ow.nativeicon.RXOWNativeIconEventListener
+import com.rad.ow.api.RXWallApi
+import com.rad.rcommonlib.glide.Glide
+import com.rad.rcommonlib.utils.RXLogUtil
 import com.sameh.task.R
 import com.sameh.task.data.Companies
 import com.sameh.task.databinding.FragmentCompanyBinding
 import com.sameh.task.utils.Const.OKSPIN_APP_KEY
 import com.sameh.task.utils.Const.OKSPIN_PLACEMENT
+import com.sameh.task.utils.Const.ROULAX_APP_ID
+import com.sameh.task.utils.Const.ROULAX_UNIT_ID
 
 class CompanyFragment : Fragment() {
 
@@ -45,7 +61,9 @@ class CompanyFragment : Fragment() {
                 initOkspinSDK()
             }
 
-            Companies.Roulax -> {}
+            Companies.Roulax -> {
+                initRoulaxSDK()
+            }
         }
     }
 
@@ -184,6 +202,61 @@ class CompanyFragment : Fragment() {
                 "onUserInteraction interaction: $interaction".toLogD()
             }
         })
+    }
+
+    private fun initRoulaxSDK() {
+        RXSDK.init(ROULAX_APP_ID, object : RXSDK.RXSDKInitListener {
+            override fun onSDKInitSuccess() {
+                RXLogUtil.d("initRoulaxSDK onSDKInitSuccess")
+                RXWallApi.setUserId(ROULAX_APP_ID)
+                loadRXOWNativeAd()
+            }
+
+            override fun onSDKInitFailure(error: RXError) {
+                RXLogUtil.d("onSDKInitFailure error: ${error.msg}")
+            }
+        })
+    }
+
+    private fun loadRXOWNativeAd() {
+        RXSDK.createRXSdkAd()
+            .loadOWNative(
+                requireContext(),
+                ROULAX_UNIT_ID,
+                1,
+                object : RXSdkAd.RXOWNativeAdListener {
+                    override fun failure(adInfo: RXAdInfo, errorList: List<RXError>) {
+                        RXLogUtil.d("createRXSdkAd failure: adInfo: $adInfo, error: $errorList")
+                    }
+
+                    override fun success(adInfo: RXAdInfo, nativeAdList: List<RXOWNativeAd>) {
+                        RXLogUtil.d(nativeAdList)
+                        nativeAdList[0].setRXOWNativeListener(object : RXOWNativeEventListener {
+
+                            override fun onAdClick(pAdInfo: RXAdInfo) {
+                                RXLogUtil.d("createRXSdkAd success onAdClick: pAdInfo: $pAdInfo")
+                            }
+
+                            override fun onAdClose(pAdInfo: RXAdInfo) {
+                                RXLogUtil.d("createRXSdkAd success onAdClose: pAdInfo: $pAdInfo")
+                            }
+
+                            override fun onAdShow(pAdInfo: RXAdInfo) {
+                                RXLogUtil.d("createRXSdkAd success onAdShow: pAdInfo: $pAdInfo")
+                            }
+
+                            override fun onRenderFail(pAdInfo: RXAdInfo, pError: RXError) {
+                                RXLogUtil.d("createRXSdkAd success onRenderFail: pAdInfo: $pAdInfo, pError: $pError")
+                            }
+
+                            override fun onRenderSuccess(pView: View) {
+                                RXLogUtil.d("createRXSdkAd success onRenderSuccess: adInfo: $adInfo")
+                                binding.linearCompanyIcon.addView(pView)
+                            }
+                        })
+                        nativeAdList[0].render()
+                    }
+                })
     }
 
     private fun String.toLogD(tag: String = "debuggingTAG") {
