@@ -208,7 +208,7 @@ class CompanyFragment : Fragment() {
         RXSDK.init(ROULAX_APP_ID, object : RXSDK.RXSDKInitListener {
             override fun onSDKInitSuccess() {
                 RXLogUtil.d("initRoulaxSDK onSDKInitSuccess")
-                RXWallApi.setUserId(ROULAX_APP_ID)
+                //RXWallApi.setUserId(ROULAX_APP_ID)
                 loadRXOWNativeAd()
             }
 
